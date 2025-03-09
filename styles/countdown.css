@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding-top: 50px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#startButton {
+    background-color: #27ae60;
+    color: white;
+}
+
+#pauseButton {
+    background-color: #f39c12;
+    color: white;
+}
+
+#resetButton {
+    background-color: #e74c3c;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
