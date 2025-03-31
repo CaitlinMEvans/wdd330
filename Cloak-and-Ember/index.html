@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Cloak and Ember - Explore the magical world of Harry Potter"
+    />
+    <title>Cloak and Ember | Home</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Google Fonts - Example fonts that match the Harry Potter theme -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  </head>
+  <body>
+    <div class="page-container">
+      <header class="main-header">
+        <nav class="main-nav">
+          <div class="logo">
+            <a href="index.html">
+              <h1>Cloak and Ember</h1>
+            </a>
+          </div>
+          <div class="nav-links" id="navLinks">
+            <ul>
+              <li><a href="index.html" class="active">Home</a></li>
+              <li><a href="characters.html">Characters</a></li>
+              <li><a href="spells.html">Spells</a></li>
+              <li><a href="potions.html">Potions</a></li>
+              <li><a href="quotes.html">Quotes</a></li>
+            </ul>
+          </div>
+          <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Explore the Magical World</h2>
+            <p>
+              Discover characters, spells, potions and more from the Wizarding
+              World
+            </p>
+            <button id="randomFactBtn" class="btn btn-primary">
+              Summon a Random Fact
+            </button>
+          </div>
+        </section>
+
+        <section class="categories">
+          <h2 class="section-title">Browse Categories</h2>
+          <div class="category-grid">
+            <!-- Category cards will be inserted here by JavaScript -->
+          </div>
+        </section>
+
+        <section class="featured">
+          <h2 class="section-title">Featured Cards</h2>
+          <div class="featured-cards">
+            <!-- Featured cards will be inserted here by JavaScript -->
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="footer-content">
+          <p>Created for WDD330 - Final Project</p>
+          <p>Data provided by various Harry Potter APIs</p>
+        </div>
+      </footer>
+
+      <!-- Modal Template -->
+      <div class="modal-container" id="modalContainer">
+        <div class="modal">
+          <div class="modal-header">
+            <h2 id="modalTitle"></h2>
+            <button class="close-btn" id="closeModal">&times;</button>
+          </div>
+          <div class="modal-content" id="modalContent">
+            <!-- Modal content will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

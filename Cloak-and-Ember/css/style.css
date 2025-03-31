@@ -1,0 +1,1343 @@
+/* ============== Base Styles ============== */
+:root {
+    /* Color variables - based on Hogwarts house colors and Harry Potter theme */
+    --color-dark: #0f172a;
+    --color-light: #f8fafc;
+    --color-accent: #c7a84e; /* Gold */
+    --color-primary: #1e293b;
+    --color-secondary: #334155;
+    
+    /* House Colors */
+    --color-gryffindor: #740001;
+    --color-gryffindor-secondary: #d3a625;
+    --color-slytherin: #1a472a;
+    --color-slytherin-secondary: #aaaaaa;
+    --color-ravenclaw: #0e1a40;
+    --color-ravenclaw-secondary: #946b2d;
+    --color-hufflepuff: #ecb939;
+    --color-hufflepuff-secondary: #372e29;
+    
+    /* Categories */
+    --color-characters: #5b21b6;
+    --color-spells: #2563eb;
+    --color-potions: #65a30d;
+    --color-magical-creatures: #0891b2;
+    --color-quotes: #9d174d;
+    
+    /* Font variables */
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    
+    /* Border Radius */
+    --border-radius-sm: 0.25rem;
+    --border-radius-md: 0.5rem;
+    --border-radius-lg: 1rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-light);
+    background-color: var(--color-dark);
+    background-image: url('../images/bg-texture.png');
+    background-size: 200px;
+    background-repeat: repeat;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    cursor: pointer;
+    font-family: var(--font-body);
+}
+
+/* ============== Layout Components ============== */
+
+/* Header and Navigation */
+.main-header {
+    background-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    color: var(--color-accent);
+}
+
+.nav-links ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+}
+
+.nav-links a {
+    color: var(--color-light);
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--color-accent);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-light);
+    transition: all var(--transition-fast);
+}
+
+/* Hero Section */
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                     url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-accent);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-light);
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    font-weight: 600;
+    text-align: center;
+    transition: all var(--transition-medium);
+    border: none;
+    outline: none;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Section Styles */
+section {
+    padding: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+    color: var(--color-accent);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--color-accent);
+}
+
+/* Category Grid */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Card Styles */
+.card {
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+    position: relative;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: var(--spacing-md);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-light);
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.card-badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--color-light);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+}
+
+/* Category Cards */
+.category-card {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-medium);
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.category-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-accent);
+}
+
+.category-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Featured Cards */
+.featured-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Modal Styles */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-medium);
+}
+
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    max-width: 90%;
+    width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.8);
+    transition: transform var(--transition-medium);
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-container.active .modal {
+    transform: scale(1);
+}
+
+.modal-header {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin-bottom: 0;
+    color: var(--color-accent);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--color-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.close-btn:hover {
+    color: var(--color-accent);
+}
+
+.modal-content {
+    padding: var(--spacing-lg);
+}
+
+/* Footer */
+footer {
+    background-color: var(--color-primary);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ============== Animations ============== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 5px rgba(199, 168, 78, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(199, 168, 78, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(199, 168, 78, 0.5);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn var(--transition-medium) forwards;
+}
+
+.slide-in-up {
+    animation: slideInUp var(--transition-medium) forwards;
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.glow {
+    animation: glowing 2s infinite;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Loader Animation */
+.loader {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--color-accent);
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+/* Spell and Potion Animations */
+.spell-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.spell-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    z-index: 1;
+    animation: spellEffect 2s infinite;
+}
+
+@keyframes spellEffect {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.potion-bubble {
+    position: relative;
+}
+
+.potion-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(
+        to top,
+        rgba(var(--potion-color, 101, 163, 13), 0.3),
+        transparent
+    );
+    animation: potionBubble 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes potionBubble {
+    0%, 100% {
+        height: 0;
+    }
+    50% {
+        height: 100%;
+    }
+}
+
+/* House-specific elements */
+.gryffindor-element {
+    background: linear-gradient(135deg, var(--color-gryffindor), var(--color-gryffindor-secondary));
+}
+
+.slytherin-element {
+    background: linear-gradient(135deg, var(--color-slytherin), var(--color-slytherin-secondary));
+}
+
+.ravenclaw-element {
+    background: linear-gradient(135deg, var(--color-ravenclaw), var(--color-ravenclaw-secondary));
+}
+
+.hufflepuff-element {
+    background: linear-gradient(135deg, var(--color-hufflepuff), var(--color-hufflepuff-secondary));
+}
+
+/* Category-specific elements */
+.characters-element {
+    --category-color: var(--color-characters);
+    border-color: var(--category-color);
+}
+
+.spells-element {
+    --category-color: var(--color-spells);
+    border-color: var(--category-color);
+}
+
+.potions-element {
+    --category-color: var(--color-potions);
+    border-color: var(--category-color);
+}
+
+.creatures-element {
+    --category-color: var(--color-magical-creatures);
+    border-color: var(--category-color);
+}
+
+.quotes-element {
+    --category-color: var(--color-quotes);
+    border-color: var(--category-color);
+}
+
+/* ============== Responsive Styles ============== */
+
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2.5rem;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        background-color: var(--color-primary);
+        flex-direction: column;
+        padding-top: 80px;
+        transition: right var(--transition-medium);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: var(--spacing-md);
+        text-align: center;
+    }
+
+    .hamburger {
+        display: flex;
+        z-index: 101;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .featured-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============== Page Specific Styles ============== */
+
+/* Page Hero */
+.page-hero {
+    background-color: var(--color-primary);
+    padding: var(--spacing-xl) var(--spacing-md);
+    text-align: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                     url('../images/page-header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.page-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-accent);
+}
+
+.page-hero p {
+    font-size: 1.2rem;
+    color: var(--color-light);
+}
+
+/* Page Loader */
+.page-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    display: none;
+}
+
+.page-loader p {
+    margin-top: var(--spacing-md);
+    color: var(--color-light);
+}
+
+/* Filters Section */
+.filters-section {
+    background-color: var(--color-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.filters-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.search-filter {
+    margin-bottom: var(--spacing-md);
+}
+
+.search-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-sm);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-light);
+    font-family: var(--font-body);
+    transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.house-filters h3,
+.role-filters h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-light);
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.house-filter-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-light);
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.house-filter-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.house-filter-btn.active {
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+}
+
+.house-filter-btn .count {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.gryffindor-element {
+    background: linear-gradient(135deg, var(--color-gryffindor), var(--color-gryffindor-secondary)) !important;
+    color: white !important;
+}
+
+.slytherin-element {
+    background: linear-gradient(135deg, var(--color-slytherin), var(--color-slytherin-secondary)) !important;
+    color: white !important;
+}
+
+.ravenclaw-element {
+    background: linear-gradient(135deg, var(--color-ravenclaw), var(--color-ravenclaw-secondary)) !important;
+    color: white !important;
+}
+
+.hufflepuff-element {
+    background: linear-gradient(135deg, var(--color-hufflepuff), var(--color-hufflepuff-secondary)) !important;
+    color: var(--color-dark) !important;
+}
+
+.checkbox-filters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    margin-right: var(--spacing-sm);
+}
+
+.checkbox-text {
+    color: var(--color-light);
+}
+
+.count {
+    margin-left: var(--spacing-xs);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.random-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--spacing-md);
+}
+
+/* Results Section */
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.results-header h3 {
+    font-size: 1.5rem;
+    color: var(--color-light);
+}
+
+.filtered-count {
+    font-weight: normal;
+    color: var(--color-accent);
+}
+
+.card-grid,
+.characters-grid,
+.spells-grid,
+.potions-grid,
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Character Cards */
+.character-card .card-badge {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.gryffindor-badge {
+    background-color: var(--color-gryffindor) !important;
+}
+
+.slytherin-badge {
+    background-color: var(--color-slytherin) !important;
+}
+
+.ravenclaw-badge {
+    background-color: var(--color-ravenclaw) !important;
+}
+
+.hufflepuff-badge {
+    background-color: var(--color-hufflepuff) !important;
+}
+
+.house-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: var(--spacing-xs);
+}
+
+.gryffindor-icon {
+    background-color: var(--color-gryffindor);
+}
+
+.slytherin-icon {
+    background-color: var(--color-slytherin);
+}
+
+.ravenclaw-icon {
+    background-color: var(--color-ravenclaw);
+}
+
+.hufflepuff-icon {
+    background-color: var(--color-hufflepuff);
+}
+
+/* Spell Cards */
+.spell-card .card-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: var(--color-dark);
+}
+
+.spell-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--spell-color, rgba(255, 255, 255, 0.5));
+}
+
+.spell-badge {
+    background-color: var(--color-spells) !important;
+}
+
+.spell-incantation {
+    font-style: italic;
+    color: var(--color-accent);
+}
+
+/* Potion Cards */
+.potion-card .card-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: var(--color-dark);
+}
+
+.potion-icon {
+    width: 60px;
+    height: 100px;
+    position: relative;
+    border-radius: 0 0 30px 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.potion-liquid {
+    width: 100%;
+    height: 70%;
+    background-color: var(--potion-color, #7e3ff2);
+    border-radius: 0 0 30px 30px;
+}
+
+.potion-badge {
+    background-color: var(--color-potions) !important;
+}
+
+/* Quote Cards */
+.quote-card {
+    background-color: var(--color-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    position: relative;
+}
+
+.quote-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.quote-mark {
+    font-size: 3rem;
+    color: var(--color-accent);
+    opacity: 0.3;
+    position: absolute;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    line-height: 1;
+}
+
+.quote-text {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-light);
+    z-index: 1;
+}
+
+.quote-card .card-meta {
+    color: var(--color-accent);
+    font-weight: 500;
+    align-self: flex-end;
+}
+
+/* Modal Detail Layout */
+.modal-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-lg);
+}
+
+.modal-image-container {
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    background-color: var(--color-secondary);
+}
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-spell-container,
+.modal-potion-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius-md);
+    height: 300px;
+}
+
+.spell-icon-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--spell-color, #7e3ff2);
+    box-shadow: 0 0 30px var(--spell-color, rgba(255, 255, 255, 0.5));
+}
+
+.potion-flask {
+    width: 100px;
+    height: 160px;
+    position: relative;
+    border-radius: 0 0 50px 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.modal-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.info-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.info-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-accent);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--spacing-xs);
+}
+
+.info-value {
+    color: var(--color-light);
+    font-weight: 500;
+}
+
+.alternate-names-list,
+.ingredients-list,
+.inventors-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.alternate-names-list li,
+.ingredients-list li,
+.inventors-list li {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-light);
+}
+
+.wand-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.wand-wood,
+.wand-core,
+.wand-length {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-light);
+}
+
+.patronus-value,
+.actor-value,
+.manufacturer-value {
+    color: var(--color-light);
+    font-weight: 500;
+}
+
+.spell-interactive {
+    margin-top: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+}
+
+.spell-result {
+    min-height: 60px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-quote-container {
+    padding: var(--spacing-lg);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.quote-content {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.quote-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-light);
+    line-height: 1.5;
+}
+
+.quote-attribution {
+    font-size: 1.1rem;
+    color: var(--color-accent);
+}
+
+.quote-source {
+    text-align: right;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+}
+
+.favorite-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.favorite-btn.is-favorite {
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+}
+
+.favorite-icon {
+    font-size: 1.2rem;
+}
+
+.favorite-marker {
+    position: absolute;
+    top: var(--spacing-xs);
+    left: var(--spacing-xs);
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+/* Spell Effects */
+.red-glow {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7) !important;
+}
+
+.blue-glow {
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.7) !important;
+}
+
+.green-glow {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7) !important;
+}
+
+.yellow-glow {
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.7) !important;
+}
+
+.purple-glow {
+    box-shadow: 0 0 20px rgba(128, 0, 128, 0.7) !important;
+}
+
+.white-glow {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Animation States */
+.animate-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+.animate-in.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--color-light);
+    animation: spin 1s linear infinite;
+    margin-right: var(--spacing-sm);
+}
+
+.error-message {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.error-message p {
+    margin-bottom: var(--spacing-md);
+    color: var(--color-light);
+}
+
+.retry-btn {
+    margin-top: var(--spacing-md);
+}
+
+.no-items-message {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-detail-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-image-container,
+    .modal-spell-container,
+    .modal-potion-container {
+        height: 250px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters-container {
+        grid-template-columns: 1fr;
+    }
+}
