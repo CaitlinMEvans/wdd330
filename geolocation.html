@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta
+          name="description"
+          content="WDD330 activities pages "
+        />
+        <meta name="author" content="Caitlin Evans" />
+        <title>WDD 330 - Geolocation | Caitlin Evans</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                text-align: center;
+                background-color: #f4f4f4;
+            }
+            #location-info {
+                background-color: white;
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            #map-container {
+                margin-top: 20px;
+                width: 100%;
+                max-width: 600px;
+                height: 450px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #map-iframe {
+                width: 100%;
+                height: 100%;
+                border: 0;
+                border-radius: 8px;
+            }
+            button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 10px 0;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            #error-message {
+                color: red;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Geolocation Example with Map</h1>
+        <button onclick="getLocation()">Get My Location</button>
+        <div id="location-info"></div>
+        <div id="map-container">
+            <iframe id="map-iframe" style="display:none;"></iframe>
+        </div>
+        <div id="error-message"></div>
+    
+        <script>
+            function getLocation() {
+                const locationInfo = document.getElementById('location-info');
+                const mapIframe = document.getElementById('map-iframe');
+                const errorMessage = document.getElementById('error-message');
+                
+                // Clear previous results
+                locationInfo.innerHTML = '';
+                mapIframe.style.display = 'none';
+                errorMessage.textContent = '';
+                
+                // Check if geolocation is supported
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        // Success callback
+                        (position) => {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
+                            
+                            // Display location information
+                            locationInfo.innerHTML = `
+                                <h2>Your Location</h2>
+                                <p>Latitude: ${latitude}</p>
+                                <p>Longitude: ${longitude}</p>
+                                <p>Accuracy: ${position.coords.accuracy} meters</p>
+                            `;
+                            
+                            // Update Google Maps iframe
+                            mapIframe.src = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBxDhXPmN4QSEAGnANQkbXJgo6kJiD42as&q=${latitude},${longitude}&zoom=15`;
+                            mapIframe.style.display = 'block';
+                        },
+                        // Error callback
+                        (error) => {
+                            let errorText = '';
+                            switch(error.code) {
+                                case error.PERMISSION_DENIED:
+                                    errorText = "User denied the request for Geolocation.";
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    errorText = "Location information is unavailable.";
+                                    break;
+                                case error.TIMEOUT:
+                                    errorText = "The request to get user location timed out.";
+                                    break;
+                                case error.UNKNOWN_ERROR:
+                                    errorText = "An unknown error occurred.";
+                                    break;
+                            }
+                            errorMessage.textContent = errorText;
+                        },
+                        // Options
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 5000,
+                            maximumAge: 0
+                        }
+                    );
+                } else {
+                    errorMessage.textContent = "Geolocation is not supported by this browser.";
+                }
+            }
+        </script>
+    </body>
+    </html>

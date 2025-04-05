@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="WDD330 activities pages " />
+    <meta name="author" content="Caitlin Evans" />
+    <title>WDD 330 - Canvas Toggle Faces | Caitlin Evans</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+      canvas {
+        border: 2px solid #333;
+        background-color: white;
+        cursor: pointer;
+      }
+      #instructions {
+        position: absolute;
+        top: 20px;
+        text-align: center;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="instructions">Click the face to toggle!</div>
+    <canvas id="faceCanvas" width="300" height="300"></canvas>
+
+    <script>
+      const canvas = document.getElementById("faceCanvas");
+      const ctx = canvas.getContext("2d");
+      let isHappyFace = true;
+
+      function drawHappyFace() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Face outline
+        ctx.beginPath();
+        ctx.arc(150, 150, 100, 0, Math.PI * 2);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Left eye (winking)
+        ctx.beginPath();
+        ctx.moveTo(110, 130);
+        ctx.lineTo(140, 130);
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Right eye
+        ctx.beginPath();
+        ctx.arc(190, 130, 10, 0, Math.PI * 2);
+        ctx.fillStyle = "black";
+        ctx.fill();
+
+        // Smile
+        ctx.beginPath();
+        ctx.arc(150, 180, 60, 0, Math.PI, false);
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+
+      function drawSadFace() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Face outline
+        ctx.beginPath();
+        ctx.arc(150, 150, 100, 0, Math.PI * 2);
+        ctx.fillStyle = "gray";
+        ctx.fill();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Left eye
+        ctx.beginPath();
+        ctx.arc(110, 130, 10, 0, Math.PI * 2);
+        ctx.fillStyle = "black";
+        ctx.fill();
+
+        // Right eye
+        ctx.beginPath();
+        ctx.arc(190, 130, 10, 0, Math.PI * 2);
+        ctx.fillStyle = "black";
+        ctx.fill();
+
+        // Frown
+        ctx.beginPath();
+        ctx.arc(150, 200, 60, 0, Math.PI, true);
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+
+      // Initial draw
+      drawHappyFace();
+
+      // Toggle faces on click
+      canvas.addEventListener("click", () => {
+        if (isHappyFace) {
+          drawSadFace();
+        } else {
+          drawHappyFace();
+        }
+        isHappyFace = !isHappyFace;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,210 @@
+/* Base Styles (Mobile First) */
+@media (max-width: 768px) {
+    :root {
+        --text-4xl: 1.875rem;
+        --text-3xl: 1.5rem;
+        --text-2xl: 1.25rem;
+        --text-xl: 1.125rem;
+        --text-lg: 1rem;
+        --spacing-16: 2rem;
+        --spacing-12: 1.5rem;
+        --spacing-8: 1rem;
+    }
+
+    .app-container {
+        padding: var(--spacing-2);
+    }
+
+    .hero {
+        height: 30vh;
+        min-height: 200px;
+        margin-bottom: var(--spacing-4);
+    }
+
+    .hero-content {
+        padding: var(--spacing-4);
+    }
+
+    .category-nav {
+        margin-bottom: var(--spacing-4);
+        gap: var(--spacing-4);
+    }
+
+    .category-container {
+        gap: var(--spacing-2);
+    }
+
+    .category-card {
+        width: 100px;
+        height: 100px;
+    }
+
+    .category-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .content-header {
+        flex-direction: column;
+        gap: var(--spacing-3);
+        align-items: flex-start;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: var(--spacing-3);
+    }
+
+    .card-image-container {
+        height: 150px;
+    }
+
+    .modal-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .app-container {
+        padding: var(--spacing-3);
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .category-container {
+        gap: var(--spacing-3);
+    }
+
+    .category-card {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+/* Large Desktop Styles */
+@media (min-width: 1025px) {
+    .app-container {
+        padding: var(--spacing-4) var(--spacing-8);
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .modal {
+        max-width: 1000px;
+    }
+}
+
+/* Landscape Mode on Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        height: 200px;
+        min-height: auto;
+    }
+
+    .category-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: var(--spacing-3);
+        margin-bottom: var(--spacing-3);
+    }
+
+    .category-card {
+        flex-shrink: 0;
+    }
+
+    .modal {
+        max-height: 85vh;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .app-container {
+        padding: 0;
+    }
+
+    .hero,
+    .category-nav,
+    .modal-actions,
+    .favorite-indicator,
+    .card-category-icon {
+        display: none !important;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .modal-container.show {
+        position: relative;
+        background: none;
+    }
+
+    .modal {
+        box-shadow: none;
+        max-height: none;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    /* Our app already has a dark theme, so we don't need to make many adjustments */
+    /* Just ensure the contrast is good */
+    .category-card:first-child {
+        color: var(--color-dark);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .card::before,
+    .spell-card::after,
+    .potion-card::before,
+    .potion-card::after {
+        display: none;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (forced-colors: active) {
+    :root {
+        --color-gold: CanvasText;
+        --color-gold-light: CanvasText;
+    }
+
+    .card,
+    .modal,
+    .category-card {
+        border: 1px solid CanvasText;
+    }
+
+    .card-image-container img {
+        border: 1px solid CanvasText;
+    }
+}

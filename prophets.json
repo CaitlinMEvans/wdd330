@@ -120,7 +120,7 @@
         "birthplace": "Idaho",
         "numofchildren": 2,
         "imageurl": "https://media.ldscdn.org/images/media-library/gospel-art/latter-day-prophets/harold-b-lee-37763-gallery.jpg"
-      },
+      }, 
       {
         "name": "Spencer W.",
         "lastname": "Kimball",
@@ -189,3 +189,4 @@
       }
     ]
   }
+ 

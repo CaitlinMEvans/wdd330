@@ -1,0 +1,365 @@
+/* Loading Spinner Animation */
+@keyframes wandRotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.wand {
+    animation: wandRotate 2s infinite linear;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.magic-sparkles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.magic-sparkles::before,
+.magic-sparkles::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-gold);
+    animation: sparkle 1.5s infinite;
+}
+
+.magic-sparkles::before {
+    top: 20%;
+    left: 70%;
+    animation-delay: 0.2s;
+}
+
+.magic-sparkles::after {
+    top: 70%;
+    left: 30%;
+    animation-delay: 0.5s;
+}
+
+/* Card Hover Effects */
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: left 0.7s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+/* Card Category Icon Effects */
+.card-category-icon svg {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-category-icon svg {
+    transform: rotate(15deg);
+}
+
+/* Spell Cards - Light Glow Effect */
+.spell-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.spell-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.spell-card.light-red::after {
+    box-shadow: inset 0 0 30px rgba(255, 85, 85, 0.5);
+}
+
+.spell-card.light-green::after {
+    box-shadow: inset 0 0 30px rgba(85, 255, 85, 0.5);
+}
+
+.spell-card.light-blue::after {
+    box-shadow: inset 0 0 30px rgba(85, 85, 255, 0.5);
+}
+
+.spell-card.light-purple::after {
+    box-shadow: inset 0 0 30px rgba(170, 85, 255, 0.5);
+}
+
+.spell-card.light-yellow::after {
+    box-shadow: inset 0 0 30px rgba(255, 255, 85, 0.5);
+}
+
+.spell-card.light-white::after {
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.spell-card.light-orange::after {
+    box-shadow: inset 0 0 30px rgba(255, 170, 85, 0.5);
+}
+
+.spell-card:hover::after {
+    opacity: 1;
+}
+
+/* Potion Cards - Bubble Effect */
+@keyframes bubble {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}
+
+.potion-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.potion-card::before,
+.potion-card::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-gold);
+    opacity: 0;
+    z-index: 2;
+}
+
+.potion-card::before {
+    left: 30%;
+}
+
+.potion-card::after {
+    left: 70%;
+}
+
+.potion-card:hover::before {
+    animation: bubble 3s ease-in-out infinite;
+    animation-delay: 0.2s;
+}
+
+.potion-card:hover::after {
+    animation: bubble 2.5s ease-in-out infinite;
+    animation-delay: 0.7s;
+}
+
+/* Modal Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-container.show .modal {
+    animation: modalFadeIn 0.5s forwards;
+}
+
+/* Category Card Selection Animation */
+@keyframes selectCategory {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.category-card.selected {
+    animation: selectCategory 0.5s forwards;
+}
+
+/* Random Fact Button Glowing Effect */
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 5px var(--color-gold);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--color-gold), 0 0 30px var(--color-gold-light);
+    }
+    100% {
+        box-shadow: 0 0 5px var(--color-gold);
+    }
+}
+
+.random-fact-button {
+    position: relative;
+}
+
+.random-fact-button:hover {
+    animation: glowing 2s infinite;
+}
+
+/* Card Flip Animation */
+.flip-card {
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+    background-color: var(--color-dark-secondary);
+    padding: var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* House Banner Animation */
+@keyframes waveBanner {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(3deg);
+    }
+    75% {
+        transform: rotate(-3deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.house-banner {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    width: 30px;
+    height: 60px;
+    transform-origin: top center;
+}
+
+.house-banner:hover {
+    animation: waveBanner 1.5s ease-in-out infinite;
+}
+
+/* Favorite Heart Animation */
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.favorite-indicator {
+    transition: all 0.3s ease;
+}
+
+.favorite-indicator:hover {
+    animation: heartBeat 1s infinite;
+}
+
+/* Fade-in Animation for Cards */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+/* Staggered animation delay for cards in the grid */
+.cards-grid .card:nth-child(1) { animation-delay: 0.1s; }
+.cards-grid .card:nth-child(2) { animation-delay: 0.2s; }
+.cards-grid .card:nth-child(3) { animation-delay: 0.3s; }
+.cards-grid .card:nth-child(4) { animation-delay: 0.4s; }
+.cards-grid .card:nth-child(5) { animation-delay: 0.5s; }
+.cards-grid .card:nth-child(6) { animation-delay: 0.6s; }
+.cards-grid .card:nth-child(7) { animation-delay: 0.7s; }
+.cards-grid .card:nth-child(8) { animation-delay: 0.8s; }
+.cards-grid .card:nth-child(9) { animation-delay: 0.9s; }
+.cards-grid .card:nth-child(n+10) { animation-delay: 1s; }
