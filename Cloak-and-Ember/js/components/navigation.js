@@ -2,6 +2,37 @@
 
 // Elements
 const categoryCards = document.querySelectorAll('.category-card');
+const cardsGrid = document.querySelector('.cards-grid');
+const categoryTitle = document.querySelector('.category-title');
+const sortFilter = document.getElementById('sort-filter');
+
+// Favorite rendering function
+function renderFavoritesPage() {
+    // Clear existing content
+    cardsGrid.innerHTML = '';
+    categoryTitle.textContent = 'Favorites';
+    sortFilter.style.display = 'none'; // Hide sort filter for favorites
+
+    // Create favorites container
+    const favoritesContainer = document.createElement('div');
+    favoritesContainer.classList.add('favorites-container');
+
+    // Get favorites from app state or localStorage
+    const favorites = window.appState ? 
+        window.appState.allData.characters
+            .filter(item => window.appState.favorites.includes(item.id))
+        : JSON.parse(localStorage.getItem('favorites') || '[]');
+
+    if (favorites.length === 0) {
+        const noFavoritesMessage = document.createElement('p');
+        noFavoritesMessage.textContent = 'You have no favorites yet. Start adding some!';
+        noFavoritesMessage.classList.add('no-favorites-message');
+        cardsGrid.appendChild(noFavoritesMessage);
+    } else {
+        // Render favorites using existing card rendering logic
+        window.renderCards(cardsGrid, favorites, window.appState?.favorites || [], 'favorites');
+    }
+}
 
 // Setup the navigation component
 export function setupNavigation(onCategoryChange) {
@@ -24,8 +55,18 @@ export function setupNavigation(onCategoryChange) {
                 card.classList.remove('selected');
             }, 500);
             
-            // Call the callback function
-            onCategoryChange(category);
+            // Restore sort filter
+            if (sortFilter) {
+                sortFilter.style.display = '';
+            }
+            
+            // Special handling for favorites
+            if (category === 'favorites') {
+                renderFavoritesPage();
+            } else {
+                // Call the callback function for other categories
+                onCategoryChange(category);
+            }
         });
     });
 }
@@ -44,4 +85,9 @@ export function selectCategory(category) {
         // Simulate a click on the card
         card.click();
     }
+}
+
+// Add a method to manually trigger favorites rendering if needed
+export function showFavoritesPage() {
+    renderFavoritesPage();
 }

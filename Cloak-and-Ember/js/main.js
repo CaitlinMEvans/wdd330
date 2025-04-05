@@ -259,6 +259,7 @@ function getCategoryData(category) {
 }
 
 // Get a specific quote by ID (for modal)
+// Not able to get by ID working.. skipping for other tasks. 
 function getQuoteById(id) {
     try {
         // Try window.appQuotes first
