@@ -289,10 +289,10 @@ button {
     transform: scaleX(1);
 }
 
-.category-card:first-child {
+/* .category-card:first-child {
     background-color: var(--color-gold);
     color: var(--color-dark);
-}
+} */
 
 .category-card:first-child::after {
     background-color: var(--color-dark);
