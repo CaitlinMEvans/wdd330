@@ -10,15 +10,17 @@ import { getSpellLightClass } from '../api/potterdbApi.js';
  * @param {Array} favorites - Array of favorite item IDs
  * @param {string} category - Current category being displayed
  */
-export function renderCards(cardsGrid, items, favorites, category) {
-    // Clear the grid first
-    cardsGrid.innerHTML = '';
+export function renderCards(container, items, favorites, category) {
+    // Clear the container first
+    container.innerHTML = '';
     
     // Render each item as a card
     items.forEach(item => {
         const card = createCard(item, favorites.includes(item.id), category);
-        cardsGrid.appendChild(card);
+        container.appendChild(card);
     });
+    
+    window.renderCards = renderCards;
 }
 
 /**

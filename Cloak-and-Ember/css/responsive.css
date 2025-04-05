@@ -163,15 +163,6 @@
     }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    /* Our app already has a dark theme, so we don't need to make many adjustments */
-    /* Just ensure the contrast is good */
-    .category-card:first-child {
-        color: var(--color-dark);
-    }
-}
-
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     *,

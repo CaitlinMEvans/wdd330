@@ -31,15 +31,27 @@ export function setupModal(onFavoriteToggle) {
         }
     });
     
-    // Handle favorite toggle
     favoriteBtn.addEventListener('click', () => {
         if (currentItem) {
             const isFavorite = favoriteBtn.classList.contains('active');
-            onFavoriteToggle(currentItem.id, !isFavorite);
+            
+            if (isFavorite) {
+                // Remove from favorites
+                Favorites.removeFromFavorites(currentItem.id);
+            } else {
+                // Add to favorites
+                // Ensure the item has a type
+                const favoriteItem = {
+                    ...currentItem,
+                    type: itemType // Make sure to pass or track the item type
+                };
+                Favorites.addToFavorites(favoriteItem);
+            }
+            
+            // Toggle the button state
             toggleFavoriteButton(!isFavorite);
         }
     });
-    
     // Listen for custom event to show modal
     document.addEventListener('showModal', (event) => {
         const { item, type, isFavorite } = event.detail;

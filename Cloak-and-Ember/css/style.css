@@ -185,7 +185,7 @@ button {
 .hero {
     height: 40vh;
     min-height: 300px;
-    background-image: url('../assets/images/hogwarts-hero.jpg');
+    /* background-image: url('../assets/images/hogwarts-hero.jpg'); */
     background-size: cover;
     background-position: center;
     border-radius: var(--border-radius-lg);
@@ -266,6 +266,10 @@ button {
     overflow: hidden;
 }
 
+.category-card .icons {
+    fill: var(--color-gold); /* This will change the icon color */
+}
+
 .category-card::after {
     content: '';
     position: absolute;
@@ -294,10 +298,13 @@ button {
     color: var(--color-dark);
 } */
 
-.category-card:first-child::after {
+/* .category-card:first-child::after {
     background-color: var(--color-dark);
-}
+} */
 
+.icons{
+color: var(--color-gold);
+}
 .category-icon {
     width: 48px;
     height: 48px;
@@ -310,7 +317,6 @@ button {
 .category-icon svg {
     width: 100%;
     height: 100%;
-    color: #fff;
 }
 
 .category-name {
@@ -468,10 +474,12 @@ button {
 }
 
 .card-image {
-    width: 100%;
     height: 100%;
-    object-fit: cover;
     transition: transform var(--transition-normal);
+    margin: 0 auto;
+    justify-content: center;
+    display: flex
+;
 }
 
 .card:hover .card-image {
@@ -835,4 +843,43 @@ button {
     z-index: 5;
     color: var(--color-dark);
     font-size: var(--text-xs);
+}
+
+/* Favorites Page Styles */
+.favorites-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.favorites-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.favorite-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.favorite-card:hover {
+    transform: scale(1.05);
+}
+
+.favorite-card img {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.no-favorites-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
 }
