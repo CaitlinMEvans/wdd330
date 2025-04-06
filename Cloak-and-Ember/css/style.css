@@ -492,13 +492,13 @@ color: var(--color-gold);
     right: var(--spacing-3);
     width: 32px;
     height: 32px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--color-gold);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-gold);
-    padding: var(--spacing-1);
+    color: var(--color-dark);
+    padding: var(--spacing-2);
 }
 
 .card-content {
@@ -645,7 +645,7 @@ color: var(--color-gold);
 }
 
 .modal-image {
-    width: 100%;
+    width: 50%;
     height: auto;
     border-radius: var(--border-radius-md);
     overflow: hidden;
