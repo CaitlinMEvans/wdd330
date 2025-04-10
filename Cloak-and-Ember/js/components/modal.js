@@ -95,6 +95,9 @@ function showModal(item, itemType, isFavorite = false) {
     setTimeout(() => {
         modal.classList.add('animate-in');
     }, 10);
+
+    focusModalCloseButton();
+    trapFocus(modal);
 }
 
 // Close the modal
@@ -388,4 +391,36 @@ function getSpellLightClass(light) {
     
     const lightLower = light.toLowerCase();
     return lightMap[lightLower] || 'light-blue';
+}
+
+// A11y updates fro modal -- focus/trap focus and close one esc
+// modal focus and close button 
+function focusModalCloseButton() {
+    if (modalCloseBtn) {
+        modalCloseBtn.focus();
+    }
+}
+
+function trapFocus(modalElement) {
+    const focusableElements = modalElement.querySelectorAll(
+        'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    modalElement.addEventListener('keydown', function(e) {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) { // Shift + Tab
+            if (document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+            }
+        } else { // Tab
+            if (document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+            }
+        }
+    });
 }
