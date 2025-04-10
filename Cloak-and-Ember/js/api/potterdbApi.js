@@ -332,3 +332,49 @@ function getPotionColor(characteristics) {
     // No color found in characteristics
     return null;
 }
+
+// Fetch characters in addition  to characters fetched from hpAPI
+export async function fetchPotterDBCharacters() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/characters`);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch characters: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Process the data to match HP API structure
+        return data.data.map(character => ({
+            id: character.id,
+            name: character.attributes.name,
+            species: character.attributes.species,
+            gender: character.attributes.gender,
+            house: character.attributes.house,
+            dateOfBirth: character.attributes.born,
+            yearOfBirth: character.attributes.born ? 
+                new Date(character.attributes.born).getFullYear() : null,
+            wizard: character.attributes.species?.toLowerCase() === 'wizard',
+            ancestry: character.attributes.blood_status,
+            eyeColour: character.attributes.eye_colour,
+            hairColour: character.attributes.hair_colour,
+            wand: {
+                wood: character.attributes.wand?.wood || null,
+                core: character.attributes.wand?.core || null,
+                length: character.attributes.wand?.length || null
+            },
+            patronus: character.attributes.patronus,
+            hogwartsStudent: character.attributes.school === 'Hogwarts School of Witchcraft and Wizardry',
+            hogwartsStaff: character.attributes.occupation?.includes('Professor'),
+            actor: character.attributes.actor,
+            alternate_names: character.attributes.alternate_names || [],
+            image: character.attributes.image || null,
+            type: 'character',
+            subtype: character.attributes.school === 'Hogwarts School of Witchcraft and Wizardry' ? 
+                (character.attributes.occupation?.includes('Professor') ? 'staff' : 'student') : 'other'
+        }));
+    } catch (error) {
+        console.error('Error fetching Potter DB characters:', error);
+        return []; // Return empty array instead of throwing error
+    }
+}

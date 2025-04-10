@@ -315,25 +315,19 @@ function showRandomFact() {
 }
 
 // Handle favorite toggle
-function handleFavoriteToggle(itemId, isFavorite) {
-    try {
+function handleFavoriteToggle(item, isFavorite) {
         if (isFavorite) {
-            addToFavorites(itemId);
-            if (!appState.favorites.includes(itemId)) {
-                appState.favorites.push(itemId);
-            }
+          addToFavorites(item); // Pass full object
         } else {
-            removeFromFavorites(itemId);
-            appState.favorites = appState.favorites.filter(id => id !== itemId);
+            removeFromFavorites(item.id); // Only need id to remove
         }
+       appState.favorites = getFavorites(); // reload full favorite objects
+       renderCurrentCategory();
+    }
         
         // Update the UI
-        renderCurrentCategory();
-    } catch (error) {
-        console.error('Error toggling favorite:', error);
-        showError('Failed to update favorites. Please try again.');
-    }
-}
+        const favorites = getFavorites(); // Full objects
+        renderCards(cardsGrid, favorites, [], 'favorites');
 
 // Show loading indicator
 function showLoading() {

@@ -239,7 +239,7 @@ function createQuoteCardContent(quote) {
         </div>
         <div class="card-content">
             <h3 class="card-title">${character}</h3>
-            <p class="card-subtitle quote-text">"${quoteText.length > 60 ? quoteText.substring(0, 60) + '...' : quoteText}"</p>
+            <p class="house-badge quote-text">"${quoteText.length > 60 ? quoteText.substring(0, 60) + '...' : quoteText}"</p>
         </div>
     `;
 }

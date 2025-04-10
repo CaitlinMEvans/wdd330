@@ -1,4 +1,5 @@
 // Handles saving and retrieving data from localStorage
+import { showError } from './errorHandling.js';
 
 // Key for favorites in localStorage
 const FAVORITES_KEY = 'hp_fact_file_favorites';
@@ -10,89 +11,55 @@ export function getFavorites() {
         return favorites ? JSON.parse(favorites) : [];
     } catch (error) {
         console.error('Error getting favorites from localStorage:', error);
+        showError('Could not retrieve favorites');
         return [];
     }
 }
 
-// Add an item to favorites
-export function addToFavorites(itemId) {
-    try {
-        const favorites = getFavorites();
-        
-        // Check if item is already in favorites
-        if (!favorites.includes(itemId)) {
-            favorites.push(itemId);
-            localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-        }
-    } catch (error) {
-        console.error('Error adding to favorites:', error);
+// Add item to favorites
+export function addToFavorites(item) {
+    const favorites = getFavorites();
+    if (!favorites.some(fav => fav.id === item.id)) {
+        favorites.push(item); // Push full object
+        localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+        showSuccessToast(`Added ${item.name || item.character || 'item'} to favorites`);
+    } else {
+        showError('This item is already in your favorites');
     }
 }
 
-// Remove an item from favorites
+// Remove item from favorites
 export function removeFromFavorites(itemId) {
-    try {
-        let favorites = getFavorites();
-        
-        // Remove the item from the array
-        favorites = favorites.filter(id => id !== itemId);
-        
-        // Update localStorage
-        localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-    } catch (error) {
-        console.error('Error removing from favorites:', error);
-    }
+    let favorites = getFavorites();
+    favorites = favorites.filter(fav => fav.id !== itemId);
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    showSuccessToast('Removed from favorites');
 }
 
 // Check if an item is in favorites
 export function isFavorite(itemId) {
     const favorites = getFavorites();
-    return favorites.includes(itemId);
+    return favorites.some(fav => fav.id === itemId);
 }
 
-// Clear all favorites
-export function clearFavorites() {
-    try {
-        localStorage.removeItem(FAVORITES_KEY);
-    } catch (error) {
-        console.error('Error clearing favorites:', error);
-    }
-}
-
-// Save last viewed category to localStorage
-export function saveLastCategory(category) {
-    try {
-        localStorage.setItem('hp_fact_file_last_category', category);
-    } catch (error) {
-        console.error('Error saving last category:', error);
-    }
-}
-
-// Get last viewed category from localStorage
-export function getLastCategory() {
-    try {
-        return localStorage.getItem('hp_fact_file_last_category') || 'all';
-    } catch (error) {
-        console.error('Error getting last category:', error);
-        return 'all';
-    }
-}
-
-// Save theme preference to localStorage
-export function saveThemePreference(theme) {
-    try {
-        localStorage.setItem('hp_fact_file_theme', theme);
-    } catch (error) {
-        console.error('Error saving theme preference:', error);
-    }
-}
-
-// Get theme preference from localStorage
-export function getThemePreference() {
-    try {
-        return localStorage.getItem('hp_fact_file_theme') || 'dark';
-    } catch (error) {
-        console.error('Error getting theme preference:', error);
-        return 'dark';
-    }
+// Success toast function (add to errorHandling.js)
+export function showSuccessToast(message) {
+    const successToast = document.createElement('div');
+    successToast.classList.add('success-toast');
+    successToast.textContent = message;
+    
+    document.body.appendChild(successToast);
+    
+    // Animate in
+    setTimeout(() => {
+        successToast.classList.add('show');
+    }, 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        successToast.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(successToast);
+        }, 500);
+    }, 3000);
 }

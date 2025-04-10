@@ -1,5 +1,8 @@
 // https://hp-api.onrender.com/
 
+// Import Potter DB characters fetch
+import { fetchPotterDBCharacters } from './potterdbApi.js';
+
 // API Base URL
 const API_BASE_URL = 'https://hp-api.onrender.com/api';
 
@@ -19,8 +22,109 @@ function getDefaultCharacterImage(house) {
     }
 }
 
-// Fetch all characters from the API
+// Merge characters from different sources
 export async function fetchCharacters() {
+    try {
+        // Fetch from HP API first
+        const hpCharacters = await fetchHPCharacters();
+        
+        // Fetch from Potter DB
+        const potterDBCharacters = await fetchPotterDBCharacters();
+        
+        // Merge characters strategy
+        const mergedCharacters = [...hpCharacters];
+        
+        // Add Potter DB characters, avoiding duplicates
+        potterDBCharacters.forEach(potterDBChar => {
+            // Check if character already exists (case-insensitive name match)
+            const existingCharIndex = mergedCharacters.findIndex(hpChar => 
+                hpChar.name.toLowerCase() === potterDBChar.name.toLowerCase()
+            );
+            
+            // If character doesn't exist, add it
+            if (existingCharIndex === -1) {
+                mergedCharacters.push(potterDBChar);
+            } else {
+                // Merge additional information from Potter DB
+                const mergedChar = mergedCharacters[existingCharIndex];
+                
+                // Merge specific fields, prioritizing existing data
+                const fieldsToMerge = [
+                    'species', 'gender', 'dateOfBirth', 'yearOfBirth', 
+                    'ancestry', 'eyeColour', 'hairColour', 'patronus', 
+                    'actor', 'alternate_names', 'wizard'
+                ];
+                
+                fieldsToMerge.forEach(field => {
+                    if (!mergedChar[field] && potterDBChar[field]) {
+                        mergedChar[field] = potterDBChar[field];
+                    }
+                });
+                
+                // Merge wand details
+                if (potterDBChar.wand) {
+                    mergedChar.wand = mergedChar.wand || {};
+                    ['wood', 'core', 'length'].forEach(wandField => {
+                        if (!mergedChar.wand[wandField] && potterDBChar.wand[wandField]) {
+                            mergedChar.wand[wandField] = potterDBChar.wand[wandField];
+                        }
+                    });
+                }
+                
+                // Merge student/staff status
+                if (!mergedChar.hogwartsStudent) {
+                    mergedChar.hogwartsStudent = potterDBChar.hogwartsStudent;
+                }
+                if (!mergedChar.hogwartsStaff) {
+                    mergedChar.hogwartsStaff = potterDBChar.hogwartsStaff;
+                }
+                
+                // Update subtype based on merged data
+                mergedChar.subtype = mergedChar.hogwartsStudent ? 'student' : 
+                    (mergedChar.hogwartsStaff ? 'staff' : 'other');
+            }
+        });
+        
+        // Final processing
+        return mergedCharacters.map(character => {
+            // Find corresponding Potter DB character
+            const potterDBChar = potterDBCharacters.find(p => 
+                p.name.toLowerCase() === character.name.toLowerCase()
+            );
+
+            return {
+                // image: (() => {
+                //     console.log('Character name:', character.name);
+                //     console.log('HP API image:', character.image);
+                //     console.log('Potter DB character:', potterDBChar);
+                //     console.log('Potter DB image:', potterDBChar?.image);
+                    
+                //     return character.image || 
+                //            (potterDBChar?.image) || 
+                //            (character.house ? getDefaultCharacterImage(character.house) : './assets/images/openbook.svg');
+                // })(),
+                ...character,
+                // Image priority:
+                // 1. HP API image (if exists)
+                // 2. Potter DB image (if HP API image doesn't exist)
+                // 3. House image (if no image from APIs)
+                // 4. Default open book SVG (if no house or other image)
+                image: character.image || 
+                       (potterDBChar?.image) || 
+                       (character.house ? getDefaultCharacterImage(character.house) : './assets/images/openbook.svg'),
+                type: 'character',
+                subtype: character.hogwartsStudent ? 'student' : 
+                         (character.hogwartsStaff ? 'staff' : 'other')
+            };
+        });
+    } catch (error) {
+        console.error('Error fetching and merging characters:', error);
+        throw error;
+    }
+}
+
+// Fetch HP API characters
+async function fetchHPCharacters() {
     try {
         const response = await fetch(`${API_BASE_URL}/characters`);
         
@@ -36,99 +140,39 @@ export async function fetchCharacters() {
             type: 'character',
             subtype: character.hogwartsStudent ? 'student' : 
                      character.hogwartsStaff ? 'staff' : 'other',
-            // Add a better image fallback strategy
+            // Prefer existing image strategy
             image: character.image || getDefaultCharacterImage(character.house)
         }));
     } catch (error) {
-        console.error('Error fetching characters:', error);
+        console.error('Error fetching HP characters:', error);
         throw error;
     }
 }
 
 // Fetch Hogwarts students from the API
 export async function fetchStudents() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/characters/students`);
-        
-        if (!response.ok) {
-            throw new Error(`Failed to fetch students: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Process the data
-        return data.map(student => ({
-            ...student,
-            type: 'character',
-            subtype: 'student',
-            image: student.image || getDefaultCharacterImage(student.house)
-        }));
-    } catch (error) {
-        console.error('Error fetching students:', error);
-        throw error;
-    }
+    const allCharacters = await fetchCharacters();
+    return allCharacters.filter(character => character.hogwartsStudent);
 }
 
 // Fetch Hogwarts staff from the API
 export async function fetchStaff() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/characters/staff`);
-        
-        if (!response.ok) {
-            throw new Error(`Failed to fetch staff: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Process the data
-        return data.map(staff => ({
-            ...staff,
-            type: 'character',
-            subtype: 'staff',
-            image: staff.image || getDefaultCharacterImage(staff.house)
-        }));
-    } catch (error) {
-        console.error('Error fetching staff:', error);
-        throw error;
-    }
+    const allCharacters = await fetchCharacters();
+    return allCharacters.filter(character => character.hogwartsStaff);
 }
 
 // Fetch characters by house
 export async function fetchCharactersByHouse(house) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/characters/house/${house}`);
-        
-        if (!response.ok) {
-            throw new Error(`Failed to fetch characters for house ${house}: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Process the data
-        return data.map(character => ({
-            ...character,
-            type: 'character',
-            subtype: character.hogwartsStudent ? 'student' : 
-                     character.hogwartsStaff ? 'staff' : 'other',
-            image: character.image || getDefaultCharacterImage(character.house)
-        }));
-    } catch (error) {
-        console.error(`Error fetching characters for house ${house}:`, error);
-        throw error;
-    }
+    const allCharacters = await fetchCharacters();
+    return allCharacters.filter(character => 
+        character.house && character.house.toLowerCase() === house.toLowerCase()
+    );
 }
 
 // Fetch a specific character by ID
 export async function fetchCharacterById(id) {
-    try {
-        // We don't have a direct endpoint for fetching by ID,
-        // so we'll fetch all characters and find the one we want
-        const allCharacters = await fetchCharacters();
-        return allCharacters.find(character => character.id === id);
-    } catch (error) {
-        console.error(`Error fetching character by ID ${id}:`, error);
-        throw error;
-    }
+    const allCharacters = await fetchCharacters();
+    return allCharacters.find(character => character.id === id);
 }
 
 // Get wand details

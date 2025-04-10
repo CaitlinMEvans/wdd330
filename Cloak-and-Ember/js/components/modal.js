@@ -1,4 +1,5 @@
 // modal.js - Handles the modal component for displaying detailed information
+import { addToFavorites, removeFromFavorites } from '../utils/localStorage.js'; 
 
 // Modal elements
 const modalContainer = document.querySelector('.modal-container');
@@ -35,23 +36,31 @@ export function setupModal(onFavoriteToggle) {
         if (currentItem) {
             const isFavorite = favoriteBtn.classList.contains('active');
             
+            // Determine the type based on the current item's properties
+            const itemType = currentItem.species ? 'character' : 
+                            currentItem.effect ? 'spell' :
+                            currentItem.quote ? 'quote' : 
+                            'unknown';
+            
             if (isFavorite) {
                 // Remove from favorites
-                Favorites.removeFromFavorites(currentItem.id);
+                removeFromFavorites(currentItem.id);
             } else {
                 // Add to favorites
-                // Ensure the item has a type
                 const favoriteItem = {
                     ...currentItem,
-                    type: itemType // Make sure to pass or track the item type
+                    type: itemType
                 };
-                Favorites.addToFavorites(favoriteItem);
+                addToFavorites(favoriteItem);
             }
             
             // Toggle the button state
             toggleFavoriteButton(!isFavorite);
+            const favoriteItemId = currentItem.id;
+            addToFavorites(favoriteItemId);
         }
     });
+
     // Listen for custom event to show modal
     document.addEventListener('showModal', (event) => {
         const { item, type, isFavorite } = event.detail;
@@ -160,6 +169,13 @@ function renderCharacterContent(character) {
     const imageContainer = createImageContainer(character.image, character.name);
     
     // Add house badge if available
+    // if (character.house) {
+    //     const houseBadge = document.createElement('div');
+    //     houseBadge.classList.add('house-badge', `house-${character.house.toLowerCase()}`);
+    //     houseBadge.textContent = character.house;
+    //     imageContainer.appendChild(houseBadge);
+    // }
+
     if (character.house) {
         const houseBadge = document.createElement('div');
         houseBadge.classList.add('house-badge', `house-${character.house.toLowerCase()}`);

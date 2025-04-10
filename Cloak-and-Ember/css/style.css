@@ -615,21 +615,32 @@ color: var(--color-gold);
     color: var(--color-gold);
 }
 
-.modal-close-btn {
-    background: none;
-    border: none;
-    color: var(--color-light);
-    font-size: var(--text-2xl);
-    cursor: pointer;
-    transition: color var(--transition-fast);
+.modal-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+    align-items: start;
 }
 
+.modal-close-btn {
+    color: var(--color-light);
+    font-size: 2em;
+}
 .modal-close-btn:hover {
     color: var(--color-gold);
 }
 
-.modal-content {
+/* .modal-content {
     padding: var(--spacing-6);
+} */
+
+.modal-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;  
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+    align-items: start;
 }
 
 .modal-info-grid {
@@ -644,11 +655,28 @@ color: var(--color-gold);
     gap: var(--spacing-4);
 }
 
-.modal-image {
+/* .modal-image {
     width: 50%;
     height: auto;
     border-radius: var(--border-radius-md);
     overflow: hidden;
+    margin-bottom: var(--spacing-4);
+} */
+
+.modal-image-container {
+    grid-column: 1;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: var(--border-radius-md);
+    object-fit: cover;
     margin-bottom: var(--spacing-4);
 }
 
@@ -658,9 +686,40 @@ color: var(--color-gold);
     object-fit: cover;
 }
 
-.info-section {
+/* .info-section {
     margin-bottom: var(--spacing-4);
+} */
+
+.modal-info-section {
+    grid-column: 2;  /* Explicitly place in second column */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
 }
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: var(--spacing-2);
+}
+
+.detail-label {
+    color: var(--color-gold);
+    font-weight: 600;
+}
+
+.detail-value {
+    text-align: right;
+}
+
+.modal-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 var(--spacing-6) var(--spacing-6);
+}
+
 
 .info-section-title {
     font-size: var(--text-lg);
@@ -791,6 +850,8 @@ color: var(--color-gold);
     font-size: var(--text-xs);
     font-weight: 600;
     margin-left: var(--spacing-2);
+    background-color: var(--house-primary, var(--color-dark)); /* Fallback to gold if no house primary is set */
+    color: var(--color-light);
 }
 
 .house-gryffindor .house-badge {
@@ -882,4 +943,23 @@ color: var(--color-gold);
     text-align: center;
     color: #666;
     font-style: italic;
+}
+/* Toast Message Styling */
+.success-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--color-green-light);
+    color: white;
+    padding: var(--spacing-4);
+    border-radius: var(--border-radius-md);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    z-index: 1100;
+}
+
+.success-toast.show {
+    opacity: 1;
+    transform: translateY(0);
 }

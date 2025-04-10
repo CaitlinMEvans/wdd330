@@ -59,8 +59,12 @@
         height: 150px;
     }
 
-    .modal-info-grid {
+    .modal-content {
         grid-template-columns: 1fr;
+    }
+    
+    .modal-image {
+        max-width: 250px; /* Adjust as needed */
     }
 
     .modal-actions {
