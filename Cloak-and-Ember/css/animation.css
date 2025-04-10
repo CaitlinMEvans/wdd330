@@ -1,11 +1,14 @@
-/* Loading Spinner Animation */
+/* Wand Waving Animation */
 @keyframes wandRotate {
     0% {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
+        transform: rotate(-15deg) translateX(-10px);
+      }
+      50% {
+        transform: rotate(15deg) translateX(10px);
+      }
+      100% {
+        transform: rotate(-15deg) translateX(-10px);
+      }
 }
 
 .wand {
@@ -22,6 +25,19 @@
         transform: scale(1);
     }
 }
+
+.wand::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #d1c4e9 0%, #673ab7 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 8px #9c27b0, 0 0 12px #9c27b0;
+  }
 
 .magic-sparkles {
     position: absolute;
@@ -142,53 +158,147 @@
 /* Potion Cards - Bubble Effect */
 @keyframes bubble {
     0% {
-        transform: translateY(0);
-        opacity: 0;
+      transform: translate(0, 0);
+      opacity: 0;
     }
-    50% {
-        opacity: 0.8;
+    30% {
+      opacity: 1;
     }
     100% {
-        transform: translateY(-100px);
-        opacity: 0;
+      transform: translate(calc(var(--drift, 0px)), -120px);
+      opacity: 0;
     }
-}
+  }
 
 .potion-card {
     position: relative;
     overflow: hidden;
 }
 
-.potion-card::before,
-.potion-card::after {
-    content: '';
+.bubble-container {
     position: absolute;
-    bottom: -10px;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Don't block clicks */
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    bottom: 0;
     width: 8px;
     height: 8px;
+    background: var(--color-gold); /* or a light shimmering color */
     border-radius: 50%;
-    background-color: var(--color-gold);
     opacity: 0;
-    z-index: 2;
 }
 
-.potion-card::before {
-    left: 30%;
-}
-
-.potion-card::after {
-    left: 70%;
-}
-
-.potion-card:hover::before {
+.potion-card:hover .bubble {
     animation: bubble 3s ease-in-out infinite;
-    animation-delay: 0.2s;
 }
 
-.potion-card:hover::after {
-    animation: bubble 2.5s ease-in-out infinite;
-    animation-delay: 0.7s;
+/* Randomize the bubbles */
+
+.bubble:nth-child(1) {
+  left: 20%;
+  bottom: 15%;
+  width: 6px;
+  height: 6px;
+  animation-delay: 0s;
+  animation-duration: 3s;
+  --drift: -10px; 
 }
+
+.bubble:nth-child(2) {
+  left: 40%;
+  bottom: 5%;
+  width: 10px;
+  height: 10px;
+  animation-delay: 1s;
+  animation-duration: 4s;
+  --drift: 15px;
+}
+
+.bubble:nth-child(3) {
+  left: 60%;
+  bottom: 0%;
+  width: 7px;
+  height: 7px;
+  animation-delay: 0.5s;
+  animation-duration: 3.5s;
+  --drift: -8px;
+}
+
+.bubble:nth-child(4) {
+  left: 35%;
+  bottom: 50%;
+  width: 5px;
+  height: 5px;
+  animation-delay: 1.5s;
+  animation-duration: 4s;
+  --drift: 12px;
+}
+
+.bubble:nth-child(5) {
+  left: 80%;
+  bottom: 25%;
+  width: 9px;
+  height: 9px;
+  animation-delay: 0.8s;
+  animation-duration: 2.8s;
+  --drift: -6px;
+}
+
+.bubble:nth-child(6) {
+    left: 20%;
+    bottom: 15%;
+    width: 6px;
+    height: 6px;
+    animation-delay: 0s;
+    animation-duration: 3s;
+    --drift: -10px; 
+  }
+  
+  .bubble:nth-child(7) {
+    left: 40%;
+    bottom: 0%;
+    width: 10px;
+    height: 10px;
+    animation-delay: 1s;
+    animation-duration: 4s;
+    --drift: 15px;
+  }
+  
+  .bubble:nth-child(8) {
+    left: 60%;
+    bottom: 55%;
+    width: 7px;
+    height: 7px;
+    animation-delay: 0.5s;
+    animation-duration: 3.5s;
+    --drift: -8px;
+  }
+  
+  .bubble:nth-child(9) {
+    left: 35%;
+    bottom: 85%;
+    width: 5px;
+    height: 5px;
+    animation-delay: 1.5s;
+    animation-duration: 4s;
+    --drift: 12px;
+  }
+  
+  .bubble:nth-child(10) {
+    left: 80%;
+    width: 9px;
+    height: 9px;
+    animation-delay: 0.8s;
+    animation-duration: 2.8s;
+    --drift: -6px;
+  }
+
 
 /* Modal Animations */
 @keyframes modalFadeIn {

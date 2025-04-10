@@ -5,10 +5,6 @@ import { getSpellLightClass } from '../api/potterdbApi.js';
 
 /**
  * Render all cards in the grid
- * @param {HTMLElement} cardsGrid - The container for the cards
- * @param {Array} items - Array of items to display as cards
- * @param {Array} favorites - Array of favorite item IDs
- * @param {string} category - Current category being displayed
  */
 export function renderCards(container, items, favorites, category) {
     // Clear the container first
@@ -25,10 +21,6 @@ export function renderCards(container, items, favorites, category) {
 
 /**
  * Create a card element for an item
- * @param {Object} item - The item data to display
- * @param {boolean} isFavorite - Whether the item is a favorite
- * @param {string} category - Current category being displayed
- * @returns {HTMLElement} - The card element
  */
 function createCard(item, isFavorite, category) {
     const card = document.createElement('div');
@@ -94,8 +86,6 @@ function createCard(item, isFavorite, category) {
 
 /**
  * Create content for a character card
- * @param {Object} character - Character data
- * @returns {string} - HTML content for the card
  */
 function createCharacterCardContent(character) {
     const placeholderImage = character.house ? 
@@ -135,8 +125,6 @@ function createCharacterCardContent(character) {
 
 /**
  * Create content for a spell card
- * @param {Object} spell - Spell data
- * @returns {string} - HTML content for the card
  */
 function createSpellCardContent(spell) {
     const lightClass = getSpellLightClass(spell.light);
@@ -176,8 +164,6 @@ function createSpellCardContent(spell) {
 
 /**
  * Create content for a potion card
- * @param {Object} potion - Potion data
- * @returns {string} - HTML content for the card
  */
 function createPotionCardContent(potion) {
     return `
@@ -188,6 +174,19 @@ function createPotionCardContent(potion) {
                     <path d="M8 3C8 3 9 4 12 4C15 4 16 3 16 3" stroke="currentColor" stroke-width="1.5" />
                     <path d="M5 14H19" stroke="currentColor" stroke-width="1.5" />
                 </svg>
+                <!-- BUBBLES-->
+                <div class="bubble-container">
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                </div>
             </div>
             <div class="card-category-icon">
               <svg
@@ -214,8 +213,6 @@ function createPotionCardContent(potion) {
 
 /**
  * Create content for a quote card
- * @param {Object} quote - Quote data
- * @returns {string} - HTML content for the card
  */
 function createQuoteCardContent(quote) {
     // Handle different quote formats from different sources
@@ -246,8 +243,6 @@ function createQuoteCardContent(quote) {
 
 /**
  * Create default content for a card
- * @param {Object} item - Item data
- * @returns {string} - HTML content for the card
  */
 function createDefaultCardContent(item) {
     return `
@@ -263,9 +258,6 @@ function createDefaultCardContent(item) {
 
 /**
  * Get CSS class for card based on item type
- * @param {Object} item - Item data
- * @param {string} category - Current category
- * @returns {string} - CSS class for the card
  */
 function getCardTypeClass(item, category) {
     switch (item.type) {

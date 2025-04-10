@@ -1,4 +1,5 @@
 // Navigation Component - Handles the category navigation functionality
+import { getFavorites } from '../utils/localStorage.js'; 
 
 // Elements
 const categoryCards = document.querySelectorAll('.category-card');
@@ -13,15 +14,8 @@ function renderFavoritesPage() {
     categoryTitle.textContent = 'Favorites';
     sortFilter.style.display = 'none'; // Hide sort filter for favorites
 
-    // Create favorites container
-    const favoritesContainer = document.createElement('div');
-    favoritesContainer.classList.add('favorites-container');
-
-    // Get favorites from app state or localStorage
-    const favorites = window.appState ? 
-        window.appState.allData.characters
-            .filter(item => window.appState.favorites.includes(item.id))
-        : JSON.parse(localStorage.getItem('favorites') || '[]');
+    // Get favorites from localStorage
+    const favorites = getFavorites(); // ← This returns the full saved objects!
 
     if (favorites.length === 0) {
         const noFavoritesMessage = document.createElement('p');
@@ -29,8 +23,8 @@ function renderFavoritesPage() {
         noFavoritesMessage.classList.add('no-favorites-message');
         cardsGrid.appendChild(noFavoritesMessage);
     } else {
-        // Render favorites using existing card rendering logic
-        window.renderCards(cardsGrid, favorites, window.appState?.favorites || [], 'favorites');
+        // Render favorites properly
+        window.renderCards(cardsGrid, favorites, favorites.map(f => f.id), 'favorites');
     }
 }
 

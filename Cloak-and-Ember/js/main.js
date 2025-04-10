@@ -325,9 +325,9 @@ function handleFavoriteToggle(item, isFavorite) {
        renderCurrentCategory();
     }
         
-        // Update the UI
-        const favorites = getFavorites(); // Full objects
-        renderCards(cardsGrid, favorites, [], 'favorites');
+        // // Update the UI
+        // const favorites = getFavorites(); // Full objects
+        // renderCards(cardsGrid, favorites, [], 'favorites');
 
 // Show loading indicator
 function showLoading() {

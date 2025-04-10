@@ -37,10 +37,11 @@ export function setupModal(onFavoriteToggle) {
             const isFavorite = favoriteBtn.classList.contains('active');
             
             // Determine the type based on the current item's properties
-            const itemType = currentItem.species ? 'character' : 
-                            currentItem.effect ? 'spell' :
-                            currentItem.quote ? 'quote' : 
-                            'unknown';
+            const itemType = currentItem.species ? 'character' :
+                 (currentItem.incantation || currentItem.effect && currentItem.type === 'spell') ? 'spell' :
+                 (currentItem.effect && currentItem.characteristics) ? 'potion' :
+                 currentItem.text || currentItem.quote ? 'quote' :
+                 'unknown';
             
             if (isFavorite) {
                 // Remove from favorites
@@ -56,8 +57,8 @@ export function setupModal(onFavoriteToggle) {
             
             // Toggle the button state
             toggleFavoriteButton(!isFavorite);
-            const favoriteItemId = currentItem.id;
-            addToFavorites(favoriteItemId);
+            // const favoriteItemId = currentItem.id;
+            // addToFavorites(favoriteItemId);
         }
     });
 

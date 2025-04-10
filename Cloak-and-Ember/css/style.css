@@ -380,11 +380,17 @@ color: var(--color-gold);
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 10px;
-    height: 60px;
-    background-color: var(--color-gold-light);
-    border-radius: 5px;
+    /* width: 10px;
+    height: 60px; */
+    /* background-color: var(--color-gold-light); */
+    /* border-radius: 5px; */
     transform-origin: center bottom;
+    width: 6px;            
+    height: 80px;            
+    background: linear-gradient(to bottom, #d2b48c, #8b5a2b); /* wood-like */
+    border-radius: 3px;       
+    position: relative;
+    /* margin: 0 auto;           */
 }
 
 .wand-core {
@@ -881,13 +887,13 @@ color: var(--color-gold);
     height: 40px;
 }
 
-.spell-light {
+/* .spell-light {
     display: inline-block;
     width: 12px;
     height: 12px;
     border-radius: 50%;
     margin-right: var(--spacing-2);
-}
+} */
 
 /* Favorites indicator */
 .favorite-indicator {
