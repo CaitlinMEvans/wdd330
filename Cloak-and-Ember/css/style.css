@@ -78,6 +78,11 @@
 .spell-detail.light-yellow { background-color: var(--color-yellow); }
 .spell-detail.light-orange { background-color: var(--color-orange); }
 
+.spell-card.light-white .spell-icon {
+    stroke: black; /* Set the outline color */
+    color: black;  /* Optional if the icon also uses `currentColor` */
+}
+
 /* Remove Redundant Spell Card Specific Styles */
 .spell-card::after {
     content: '';

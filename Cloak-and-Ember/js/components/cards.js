@@ -62,6 +62,12 @@ function createCard(item, isFavorite, category) {
         case 'quote':
             cardContent = createQuoteCardContent(item);
             break;
+        case 'book':
+            cardContent = createBookCardContent(item); 
+            break;
+        case 'movie':
+            cardContent = createMovieCardContent(item);
+            break;
         default:
             cardContent = createDefaultCardContent(item);
     }
@@ -132,11 +138,9 @@ function createSpellCardContent(spell) {
     return `
         <div class="card-image-container">
             <div class="spell-visual ${lightClass}">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="spell-icon">
-                    <path d="M5 2H19V8H5V2Z" stroke="currentColor" stroke-width="1.5" />
-                    <path d="M12 8V22M12 22L8 18M12 22L16 18" stroke="currentColor" stroke-width="1.5" />
-                    <path d="M5 5H8" stroke="currentColor" stroke-width="1.5" />
-                    <path d="M5 8H19" stroke="currentColor" stroke-width="1.5" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="spell-icon" fill="none">
+                <path d="M224 96l32-64 32 64 64 32-64 32-32 64-32-64-64-32 64-32zm352 64l32-64 32 64 64 32-64 32-32 64-32-64-64-32 64-32zM96 320l32-64 32 64 64 32-64 32-32 64-32-64-64-32 64-32zM629.66 205.66l-23.32-23.32c-12.5-12.5-32.76-12.5-45.26 0l-494 494c-12.5 12.5-12.5 32.76 0 45.26l23.32 23.32c12.5 12.5 32.76 12.5 45.26 0l494-494c12.5-12.5 12.5-32.76 0-45.26z" 
+                        fill="currentColor"/>
                 </svg>
             </div>
             <div class="card-category-icon">

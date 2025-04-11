@@ -378,3 +378,29 @@ export async function fetchPotterDBCharacters() {
         return []; // Return empty array instead of throwing error
     }
 }
+
+// Adding the books and movies data from the potterDB 
+// Books
+const booksApi = 'https://api.potterdb.com/v1/books';
+async function fetchBooks() {
+    try {
+      const response = await fetch(booksApi);
+      const data = await response.json();
+      return data.data; 
+    } catch (error) {
+      console.error('Failed to fetch books:', error);
+      return [];
+    }
+  }
+
+const moviesApi = 'https://api.potterdb.com/v1/movies';
+async function fetchMovies() {
+    try {
+      const response = await fetch(moviesApi);
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      console.error('Failed to fetch movies:', error);
+      return [];
+    }
+  }
