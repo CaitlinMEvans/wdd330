@@ -473,3 +473,14 @@
 .cards-grid .card:nth-child(8) { animation-delay: 0.8s; }
 .cards-grid .card:nth-child(9) { animation-delay: 0.9s; }
 .cards-grid .card:nth-child(n+10) { animation-delay: 1s; }
+
+/* Patronius make them slightly pulse / float */
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .patronus-button {
+    animation: float 3s ease-in-out infinite;
+  }

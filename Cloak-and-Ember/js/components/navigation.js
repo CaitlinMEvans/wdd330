@@ -1,5 +1,7 @@
 // Navigation Component - Handles the category navigation functionality
 import { getFavorites } from '../utils/localStorage.js'; 
+import { renderPatronusExplorer } from './patronus.js';
+
 
 // Elements
 const categoryCards = document.querySelectorAll('.category-card');
@@ -15,7 +17,7 @@ function renderFavoritesPage() {
     sortFilter.style.display = 'none'; // Hide sort filter for favorites
 
     // Get favorites from localStorage
-    const favorites = getFavorites(); // ← This returns the full saved objects!
+    const favorites = getFavorites(); 
 
     if (favorites.length === 0) {
         const noFavoritesMessage = document.createElement('p');
@@ -44,23 +46,23 @@ export function setupNavigation(onCategoryChange) {
             // Add selected animation class
             card.classList.add('selected');
             
-            // Remove selected class after animation completes
             setTimeout(() => {
                 card.classList.remove('selected');
             }, 500);
             
-            // Restore sort filter
+            // Restore sort filter (for most categories)
             if (sortFilter) {
                 sortFilter.style.display = '';
             }
             
-            // Special handling for favorites
+            // Special handling for favorites and patronus
             if (category === 'favorites') {
                 renderFavoritesPage();
+            } else if (category === 'patronus') {
+                renderPatronusExplorer(); 
             } else {
-                // Call the callback function for other categories
-                onCategoryChange(category);
-            }
+                onCategoryChange(category); // normal flow
+            }     
         });
     });
 }

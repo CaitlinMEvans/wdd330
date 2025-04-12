@@ -974,3 +974,35 @@ color: var(--color-gold);
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Patronus styles */
+.patronus-button {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(17, 24, 39, 0.8); /* Dark translucent background */
+    border: 2px solid #d4af37; /* Soft gold border */
+    border-radius: 30px;
+    color: #f9f9f9;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+  }
+  
+  /* Hover & Focus effects */
+  .patronus-button:hover,
+  .patronus-button:focus {
+    background: #d4af37; /* Soft gold background on hover */
+    color: #111827; /* Dark text when active */
+    transform: translateY(-3px) scale(1.05); /* Float up slightly */
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  }
+  
+  /* Active click animation */
+  .patronus-button:active {
+    transform: translateY(0) scale(0.98);
+  }

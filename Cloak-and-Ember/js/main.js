@@ -14,6 +14,8 @@ import { getFavorites, addToFavorites, removeFromFavorites } from './utils/local
 import { showError, hideError } from './utils/errorHandling.js';
 import { filterAndSortItems } from './utils/helpers.js';
 
+import { setupPatronusExplorer, renderPatronusExplorer } from './components/patronus.js';
+
 // Elements
 const cardsGrid = document.querySelector('.cards-grid');
 const loadingContainer = document.querySelector('.loading-container');
@@ -27,6 +29,7 @@ const CATEGORY_TITLES = {
   'characters': 'Characters',
   'spells': 'Spells',
   'potions': 'Plants & Potions',
+  'patronus' : 'Patronus Explorer',
   'quotes': 'Quotes'
 };
 
@@ -50,23 +53,20 @@ const appState = {
 // Initialize the application
 async function initApp() {
     try {
-        // Get favorites from local storage
-        appState.favorites = getFavorites();
-
-        // Setup components
-        setupEventListeners();
-        setupNavigation(changeCategory);
-        setupModal(handleFavoriteToggle);
-        setupRandomFact(showRandomFact);
-
-        // Initial load and render
-        await loadAllData();
-        await changeCategory('all');
+      appState.favorites = getFavorites();
+      setupEventListeners();
+      setupNavigation(changeCategory);
+      setupModal(handleFavoriteToggle);
+      setupRandomFact(showRandomFact);
+  
+      await loadAllData();
+      console.log('Characters loaded:', appState.allData.characters);
+      await changeCategory('all');
     } catch (error) {
-        console.error('Error initializing app:', error);
-        showError('Failed to initialize application. Please refresh the page.');
+      console.error('Error initializing app:', error);
+      showError('Failed to initialize application. Please refresh the page.');
     }
-}
+  }
 
 // Setup event listeners
 function setupEventListeners() {
@@ -157,6 +157,9 @@ async function loadAllData() {
             potions,
             quotes
         };
+
+        // add patronus data connection
+        setupPatronusExplorer(characters);
         
         // Store data in window for global access
         window.appQuotes = quotes;
@@ -176,6 +179,7 @@ async function loadAllData() {
     }
 }
 
+
 // Merge unique items from source into target based on property
 function mergeUniqueItems(target, source, property) {
     if (!Array.isArray(source) || !Array.isArray(target)) return;
@@ -193,16 +197,37 @@ function mergeUniqueItems(target, source, property) {
 }
 
 // Change the current category
+// async function changeCategory(category) {
+//     try {
+//         showLoading();
+//         appState.currentCategory = category;
+        
+//         // Update category title
+//         categoryTitle.textContent = CATEGORY_TITLES[category] || 'Cloak and Ember Facts';
+        
+//         // Render the current category
+//         renderCurrentCategory();
+//     } catch (error) {
+//         console.error('Error changing category:', error);
+//         showError('Failed to change category. Please try again.');
+//     } finally {
+//         hideLoading();
+//     }
+// }
+
 async function changeCategory(category) {
     try {
         showLoading();
         appState.currentCategory = category;
-        
-        // Update category title
-        categoryTitle.textContent = CATEGORY_TITLES[category] || 'Cloak and Ember Facts';
-        
-        // Render the current category
-        renderCurrentCategory();
+
+        if (category === 'patronus') {
+            // Patronus special case
+            renderPatronusExplorer();
+        } else {
+            // Regular cards
+            renderCurrentCategory();
+        }
+
     } catch (error) {
         console.error('Error changing category:', error);
         showError('Failed to change category. Please try again.');

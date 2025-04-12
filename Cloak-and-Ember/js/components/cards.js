@@ -225,7 +225,7 @@ function createQuoteCardContent(quote) {
     
     return `
         <div class="card-image-container">
-            <img src="${quote.image || ''}" alt="${character}" onerror="this.onerror=null; this.src='./assets/images/openbook.svg';">
+            <img class="card-image" src="${quote.image || ''}" alt="${character}" onerror="this.onerror=null; this.src='./assets/images/openbook.svg';">
             <div class="card-category-icon">
               <svg
                 class="icons"
@@ -240,10 +240,62 @@ function createQuoteCardContent(quote) {
         </div>
         <div class="card-content">
             <h3 class="card-title">${character}</h3>
-            <p class="house-badge quote-text">"${quoteText.length > 60 ? quoteText.substring(0, 60) + '...' : quoteText}"</p>
+            <p class="house-badge quote-text">"${quoteText.length > 220 ? quoteText.substring(0, 220) + '...' : quoteText}"</p>
         </div>
     `;
 }
+
+/**
+ * Exported createCard function for Patronus Explorer
+ */
+export function createPatronusCard(character) {
+    const card = document.createElement('div');
+    card.className = `card character-card ${character.house ? getHouseColorClass(character.house) : ''}`;
+    card.dataset.id = character.id;
+    card.dataset.type = 'character';
+
+    const placeholderImage = character.house ? 
+        `./assets/images/houses/${character.house.toLowerCase()}.webp` : 
+        './assets/images/openbook.svg';
+    
+    const image = character.image || placeholderImage;
+
+    card.innerHTML = `
+        <div class="card-image-container">
+            <img src="${image}" alt="${character.name}" class="card-image" 
+                 onerror="this.onerror=null; this.src='./assets/images/openbook.svg';">
+            <div class="card-category-icon">
+              <svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M64 416L168.6 180.7c15.3-34.4 40.3-63.5 72-83.7l146.9-94c3-1.9 6.5-2.9 10-2.9C407.7 0 416 8.3 416 18.6v1.6c0 2.6-.5 5.1-1.4 7.5L354.8 176.9c-1.9 4.7-2.8 9.7-2.8 14.7 0 5.5 1.2 11 3.4 16.1L448 416H240l11.8-35.4 40.4-13.5c6.5-2.2 10.9-8.3 10.9-15.2s-4.4-13-10.9-15.2l-40.4-13.5-13.5-40.4C237 276.4 230.9 272 224 272s-13 4.4-15.2 10.9l-13.5 40.4-40.4 13.5c-6.5 2.2-10.9 8.3-10.9 15.2s4.4 13 10.9 15.2l40.4 13.5L207.1 416H64z"/>
+              </svg>
+            </div>
+        </div>
+        <div class="card-content">
+            <h3 class="card-title">${character.name}</h3>
+            <p class="card-subtitle">${character.house || 'Unknown House'}</p>
+            <div class="card-tags">
+                ${character.hogwartsStudent ? '<span class="card-tag">Student</span>' : ''}
+                ${character.hogwartsStaff ? '<span class="card-tag">Staff</span>' : ''}
+                ${character.wizard ? '<span class="card-tag">Wizard</span>' : ''}
+                ${character.ancestry ? `<span class="card-tag">${character.ancestry}</span>` : ''}
+            </div>
+        </div>
+    `;
+
+    // Add click event listener to show modal (optional)
+    card.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('showModal', {
+            detail: {
+                item: character,
+                type: 'character',
+                isFavorite: false
+            }
+        }));
+    });
+
+    return card;
+}
+
 
 /**
  * Create default content for a card
